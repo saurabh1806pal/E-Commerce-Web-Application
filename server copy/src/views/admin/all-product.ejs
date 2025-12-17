@@ -1,0 +1,184 @@
+<%- include('../auth/header') %>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Products - Admin</title>
+    <link rel="stylesheet" href="/css/styleAuth.css" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+      }
+      .container {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+      h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 24px;
+      }
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+      }
+
+      .product-card {
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        display: flex;
+        flex-direction: column;
+      }
+      .product-img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        background: #e9e9e9;
+        display: block;
+      }
+      .product-body {
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .product-name {
+        font-size: 18px;
+        font-weight: 600;
+        color: #222;
+      }
+      .product-brand {
+        font-size: 13px;
+        color: #666;
+      }
+
+      .prices {
+        margin-top: 6px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .price {
+        font-size: 18px;
+        font-weight: 700;
+        color: #222;
+      }
+      .original-price {
+        font-size: 14px;
+        color: #999;
+        text-decoration: line-through;
+      }
+
+      .actions {
+        margin-top: 12px;
+        display: flex;
+        gap: 10px;
+      }
+      .btn {
+        flex: 1;
+        padding: 10px 12px;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+      }
+      .btn.edit {
+        background: #2d8fef;
+        color: #fff;
+        border: none;
+      }
+      .btn.edit:hover {
+        background: #1b74d1;
+      }
+      .btn.delete {
+        background: #ef5350;
+        color: #fff;
+        border: none;
+      }
+      .btn.delete:hover {
+        background: #e03d35;
+      }
+
+      form.delete-form {
+        margin: 0;
+      }
+      form.delete-form button {
+        width: 100%;
+        border: none;
+        background: #ef5350;
+        color: #fff;
+        padding: 10px 12px;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .no-products {
+        text-align: center;
+        color: #666;
+        padding: 40px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <h1>All Products</h1>
+
+      <% if (products && products.length) { %>
+      <div class="products-grid">
+        <% products.forEach(function(product){ %>
+        <div class="product-card">
+          <img
+            class="product-img"
+            src="<%= product.images %>"
+            alt="<%= product.productName %>"
+          />
+          <div class="product-body">
+            <div class="product-name"><%= product.productName %></div>
+            <div class="product-brand">
+              Brand: <%= product.brandName || '—' %>
+            </div>
+            <div class="prices">
+              <div class="price">$<%= product.currentPrice %></div>
+              <% if (product.originalPrice) { %>
+              <div class="original-price">$<%= product.originalPrice %></div>
+              <% } %>
+            </div>
+
+            <div class="actions">
+              <a
+                class="btn edit"
+                href="/admin/edit-product/<%= product._id %>?editing=true"
+                >Edit</a
+              >
+              <form
+                class="delete-form"
+                method="POST"
+                action="/admin/delete-product/<%= product._id %>"
+                onsubmit="return confirm('Are you sure you want to delete this product?');"
+              >
+                <button type="submit">Delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+      <% } else { %>
+      <div class="no-products">
+        No products found. Add some products to get started.
+      </div>
+      <% } %>
+    </main>
+  </body>
+</html>

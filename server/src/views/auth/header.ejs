@@ -1,0 +1,50 @@
+<header class="header">
+  <!-- LEFT SIDE -->
+  <div class="header-left">
+    <!-- Logo -->
+    <img
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6_2YFQT9AhnHfIaNsjy2rJAOdXC0vyU56KA&s"
+      class="logo-img"
+      alt="Logo"
+      class="logo-image"
+    />
+
+    <!-- Category Links -->
+    <nav class="nav-links">
+      <% if(user && user.userType === "user"){ %>
+      <a href="/products/headphones">Headphones</a>
+      <a href="/products/earbuds">EarBuds</a>
+      <a href="/products/watch">Watch</a>
+      <a href="/products/speaker">Speaker</a>
+      <a href="/products/desk-organisers">Desk-Organisers</a>
+      <a href="/products/poster">Poster</a>
+      <a href="/products/wallet">Wallet</a>
+      <% }else if(user && user.userType === "admin"){%>
+      <!-- Admin / Utility -->
+      <a href="/admin/product-listed">View All Products</a>
+      <a href="/admin/add-product">Add-Product</a>
+      <% } %>
+    </nav>
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="header-right">
+    <!-- <% if (isLoggedIn) { %> -->
+    <a href="/profile"><span class="user-info"> 👤 <%= user.name %></span></a>
+    <a href="/cart"><span class="user-info"> 🛒 Cart</span></a>
+    <a href="/wishlist"><span class="user-info"> ❤️ Heart</span></a>
+
+    <form action="/logout" method="POST">
+      <button type="submit">Logout</button>
+    </form>
+    <!-- <% } else { %> -->
+    <form action="/login" method="GET">
+      <button type="submit">Login</button>
+    </form>
+
+    <form action="/signup" method="GET">
+      <button type="submit">Signup</button>
+    </form>
+    <!-- <% } %> -->
+  </div>
+</header>

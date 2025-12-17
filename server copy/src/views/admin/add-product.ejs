@@ -1,0 +1,104 @@
+<%- include('../auth/header') %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Add Product</title>
+    <link rel="stylesheet" href="/css/styleAuth.css" />
+  </head>
+  <body>
+    <h2>Add New Product</h2>
+
+    <form action="/admin/<%= editing ? "edit-product" : "add-product" %>" method="POST">
+      <input type="hidden" name="id" value="<%= editing ? product.id : '' %>">
+      <!-- Product Name -->
+      <div>
+        <label for="productName">Product Name</label><br />
+        <input type="text" id="productName" value="<%= editing ? product.productName : '' %>" name="productName" required />
+      </div>
+
+      <br />
+
+      <!-- Brand Name -->
+      <div>
+        <label for="brandName">Brand Name</label><br />
+        <input type="text" value="<%= editing ? product.brandName : '' %>" id="brandName" name="brandName" required />
+      </div>
+
+      <br />
+
+      <!-- Image URL -->
+      <div>
+        <label for="images">Image URL</label><br />
+        <input type="text" id="images" value="<%= editing ? product.images : '' %>" name="images" required />
+      </div>
+
+      <br />
+
+      <!-- Original Price -->
+      <div>
+        <label for="originalPrice">Original Price</label><br />
+        <input type="number" id="originalPrice" value="<%= editing ? product.originalPrice : '' %>" name="originalPrice" required />
+      </div>
+
+      <br />
+
+      <!-- Current Price -->
+      <div>
+        <label for="currentPrice">Current Price</label><br />
+        <input type="number" id="currentPrice" value="<%= editing ? product.currentPrice : '' %>" name="currentPrice" required />
+      </div>
+
+      <br />
+
+      <!-- Category (Radio Buttons) -->
+       <% if(!editing){ %>
+      <div>
+        <p>Category</p>
+
+        <label>
+          <input type="radio" name="category" value="Headphones" required />
+          Headphones </label
+        ><br />
+        <input type="radio" name="category" value="EarBuds" required />
+          EarBuds </label
+        ><br />
+        <input type="radio" name="category" value="Watch" required />
+          Watch </label
+        ><br />
+        <input type="radio" name="category" value="Speaker" required />
+          Speaker </label
+        ><br />
+        <input type="radio" name="category" value="Desk-Organisers" required />
+          Desk-Organisers </label
+        ><br />
+        <input type="radio" name="category" value="Poster" required />
+          Poster </label
+        ><br />
+        <input type="radio" name="category" value="Wallet" required />
+          Wallet </label
+        ><br />
+
+      </div>
+      <% } %>
+      <br />
+
+      <!-- Description -->
+      <div>
+        <label for="description">Description</label><br />
+        <textarea
+          id="description"
+          name="description"
+          value="<%= editing ? product.description : '' %>"
+          rows="5"
+          required
+        ></textarea>
+      </div>
+
+      <br />
+
+      <!-- Submit -->
+      <button type="submit">Add Product</button>
+    </form>
+  </body>
+</html>
