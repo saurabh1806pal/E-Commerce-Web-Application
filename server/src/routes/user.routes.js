@@ -5,9 +5,8 @@ const userController = require("../controllers/user.controller");
 // User Routes
 
 // Routes to get all the Products and Product Details
-userRouter.get("/", userController.getAllProducts);
-userRouter.get("/home", userController.getAllProducts);
-userRouter.get("/home/:id", userController.getProductDetails);
+userRouter.get("/products", userController.getAllProducts);
+userRouter.get("/products/:id", userController.getProductDetails);
 
 // // Routes to view User Profile
 userRouter.get("/profile", userController.getUserProfile);

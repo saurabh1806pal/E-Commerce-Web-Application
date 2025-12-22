@@ -11,6 +11,8 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { WishlistContext } from "../context/WishListContext";
+import { CartContext } from "../context/CartContext";
 
 export default function Header() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -18,6 +20,8 @@ export default function Header() {
 
   // ✅ Get user & logout from AuthContext
   const { user, logout } = useContext(AuthContext);
+  const { wishlist } = useContext(WishlistContext);
+  const { cart } = useContext(CartContext);
 
   const categories = [
     "Headphones",
@@ -49,7 +53,7 @@ export default function Header() {
             {categories.map((category) => (
               <Link
                 key={category}
-                to={`#${category.toLowerCase()}`}
+                to={`${category.toLowerCase()}`}
                 className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium"
               >
                 {category}
@@ -69,7 +73,7 @@ export default function Header() {
               >
                 <Heart className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold">
-                  {user.favourites.length}
+                  {wishlist.length}
                 </span>
               </Link>
 
@@ -80,7 +84,7 @@ export default function Header() {
               >
                 <ShoppingCart className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold">
-                  {user.cart.length}
+                  {cart.length}
                 </span>
               </Link>
             </>

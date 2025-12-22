@@ -2,95 +2,92 @@ const Product = require("../models/product.model");
 const User = require("../models/user.model");
 const fs = require("fs");
 
-exports.getAllProducts = (req, res, next) => {
-  Product.find().then((products) => {
-    res.render("users/home", {
-      products: products,
-      isLoggedIn: req.session.isLoggedIn,
-      user: req.session.user,
-    });
+exports.getAllProducts = async (req, res) => {
+  const products = await Product.find();
+  console.log("product fetched:", products.length);
+
+  res.json({
+    success: true,
+    products,
   });
 };
+exports.getProductDetails = async (req, res) => {
+  const product = await Product.findById(req.params.id);
 
-exports.getProductDetails = (req, res, next) => {
-  const id = req.params.id;
-  console.log(id);
-  Product.findById(id).then((product) => {
-    res.render("users/details-page", {
-      product: product,
-      isLoggedIn: req.session.isLoggedIn,
-      user: req.session.user,
-    });
+  res.json({
+    success: true,
+    product,
   });
 };
-
-exports.getUserProfile = (req, res, next) => {
-  res.render("users/profile-page", {
-    isLoggedIn: req.session.isLoggedIn,
+exports.getUserProfile = (req, res) => {
+  res.json({
+    success: true,
     user: req.session.user,
   });
 };
+exports.getWishlist = async (req, res) => {
+  const user = await User.findById(req.session.user._id).populate("favourites");
 
-exports.getWishlist = async (req, res, next) => {
-  const userId = req.session.user._id;
-  const userDocs = await User.findById(userId).populate("favourites");
-  res.render("users/wishlist", {
-    products: userDocs.favourites,
-    isLoggedIn: req.session.isLoggedIn,
-    user: req.session.user,
+  res.json({
+    success: true,
+    products: user.favourites,
   });
 };
+exports.addToWishlist = async (req, res) => {
+  const user = await User.findById(req.session.user._id);
 
-exports.addToWishlist = async (req, res, next) => {
-  const id = req.params.id;
-  const userId = req.session.user._id;
-  const user = await User.findById(userId);
-  if (!user.favourites.includes(id)) {
-    user.favourites.push(id);
+  if (!user.favourites.includes(req.params.id)) {
+    user.favourites.push(req.params.id);
     await user.save();
   }
-  res.redirect("/wishlist");
-};
 
+  res.json({
+    success: true,
+    message: "Added to wishlist",
+  });
+};
 exports.removeFromWishlist = async (req, res, next) => {
-  const id = req.params.id;
-  const userId = req.session.user._id;
-  console.log(id, userId);
-  const user = await User.findById(userId);
-  if (user.favourites.includes(id)) {
-    user.favourites.splice(user.favourites.indexOf(id), 1);
+  const user = await User.findById(req.session.user._id);
+  if (user.favourites.includes(req.params.id)) {
+    user.favourites.splice(user.favourites.indexOf(req.params.id), 1);
     await user.save();
   }
-  res.redirect("/wishlist");
+  res.json({
+    success: true,
+    message: "Removed from wishlist",
+  });
 };
 
 exports.getCart = async (req, res, next) => {
-  const userId = req.session.user._id;
-  const userDocs = await User.findById(userId).populate("cart");
-  res.render("users/cart", {
-    products: userDocs.cart,
-    isLoggedIn: req.session.isLoggedIn,
-    user: req.session.user,
+  const user = await User.findById(req.session.user._id).populate("cart");
+
+  res.json({
+    success: true,
+    products: user.cart,
   });
 };
 
 exports.addToCart = async (req, res, next) => {
-  const id = req.params.id;
-  const userId = req.session.user._id;
-  const user = await User.findById(userId);
-  if (!user.cart.includes(id)) {
-    user.cart.push(id);
+  const user = await User.findById(req.session.user._id);
+
+  if (!user.cart.includes(req.params.id)) {
+    user.cart.push(req.params.id);
     await user.save();
   }
-  res.redirect("/cart");
+
+  res.json({
+    success: true,
+    message: "Added to cart",
+  });
 };
 exports.removeFromCart = async (req, res, next) => {
-  const id = req.params.id;
-  const userId = req.session.user._id;
-  const user = await User.findById(userId);
-  if (user.cart.includes(id)) {
-    user.cart.splice(user.cart.indexOf(id), 1);
+  const user = await User.findById(req.session.user._id);
+  if (user.cart.includes(req.params.id)) {
+    user.cart.splice(user.cart.indexOf(req.params.id), 1);
     await user.save();
   }
-  res.redirect("/cart");
+  res.json({
+    success: true,
+    message: "Removed from cart",
+  });
 };

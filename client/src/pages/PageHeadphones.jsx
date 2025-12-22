@@ -3,10 +3,11 @@ import { ProductContext } from "../context/ProductContext";
 
 import ProductCard from "./CardProduct";
 
-export default function HomePage() {
-  const { products, loading, error } = useContext(ProductContext);
+export default function PageHeadphones() {
+  const { products } = useContext(ProductContext);
   return (
     <div className="min-h-screen bg-white">
+      {console.log(products)}
       {/* Hero Section */}
       <section className="bg-linear-to-r from-gray-900 to-gray-700 text-white py-16 md:py-24">
         <div className="container mx-auto px-4 text-center">
@@ -32,9 +33,11 @@ export default function HomePage() {
 
         {/* Product Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
-          {products.map((product) => (
-            <ProductCard key={product._id} product={product} />
-          ))}
+          {products
+            .filter((product) => product.category === "Headphones")
+            .map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))}
         </div>
       </section>
     </div>

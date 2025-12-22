@@ -15,7 +15,6 @@ const authRouter = require("./src/routes/auth.routes");
 // Express Modules
 const app = express();
 const { default: mongoose } = require("mongoose");
-const adminRouter = require("./src/routes/admin.routes");
 const userRouter = require("./src/routes/user.routes");
 const PORT = 4000;
 
@@ -60,29 +59,8 @@ app.use(express.static(path.join(__dirname, "src", "public"))); // Serve static 
 // app.use(adminAuthRouter);
 app.use(authRouter);
 
-//2️⃣ Admin protection middleware
-app.use("/admin", (req, res, next) => {
-  if (req.session.isLoggedIn) {
-    next();
-  } else {
-    res.redirect("/login");
-  }
-});
-app.use("/admin", adminRouter);
+// 2️⃣ User Routes Second
 app.use(userRouter);
-
-// Home route (specific)
-app.get("/", (req, res) => {
-  if (
-    req.session.isLoggedIn &&
-    req.session.user &&
-    req.session.userType === "admin"
-  ) {
-    return res.redirect("/admin/add-product");
-  } else {
-    res.render("users/home");
-  }
-});
 // Server
 mongoose
   .connect(DB_PATH)
