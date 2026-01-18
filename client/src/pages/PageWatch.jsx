@@ -19,7 +19,7 @@ export default function PageWatch() {
           }}
         >
           {/* Overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-700/80"></div>
+          <div className="absolute inset-0 bg-linear-to-r from-gray-900/90 to-gray-700/80"></div>
         </div>
 
         {/* Content */}

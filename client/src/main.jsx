@@ -17,6 +17,7 @@ import HomePage from "./pages/UserHome";
 import WishlistPage from "./pages/UserWishlist";
 import PageHeadphones from "./pages/PageHeadphones.jsx";
 import PageEarbuds from "./pages/PageEarbuds.jsx";
+import ProductDetails from "./pages/ProductDetails.jsx";
 
 // Route Protection
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -121,6 +122,14 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path: ":category/:id",
+        element: (
+          <ProtectedRoute>
+            <ProductDetails />
+          </ProtectedRoute>
+        ),
+      },
       // Forbidden
       {
         path: "forbidden",
@@ -151,5 +160,5 @@ createRoot(document.getElementById("root")).render(
         </WishlistProvider>
       </ProductProvider>
     </AuthProvider>
-  </StrictMode>
+  </StrictMode>,
 );
