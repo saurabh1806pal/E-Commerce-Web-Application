@@ -9,13 +9,26 @@ export default function PageSpeaker() {
     <div className="min-h-screen bg-white">
       {console.log(products)}
       {/* Hero Section */}
-      <section className="bg-linear-to-r from-gray-900 to-gray-700 text-white py-16 md:py-24">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Discover Amazing Products
+      <section className="relative py-16 md:py-24 overflow-hidden">
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage:
+              "url('https://png.pngtree.com/thumb_back/fh260/back_our/20190621/ourmid/pngtree-bluetooth-speaker-poster-banner-image_189567.jpg')",
+          }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-700/80"></div>
+        </div>
+
+        {/* Content */}
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
+            It's Night for blasting Music 🎶
           </h2>
-          <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
-            Shop the latest trends with exclusive deals and fast delivery
+          <p className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">
+            Tune into for Immersive Audio Quality and Unmatched Comfort with Our
+            Premium Speaker Collection.
           </p>
         </div>
       </section>

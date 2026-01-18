@@ -45,23 +45,48 @@ export default function ProductCard({ product }) {
 
         {/* Hover Overlay with Buttons */}
         <div
-          className={`absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-3 transition-opacity duration-300 ${
+          className={`absolute inset-0 backdrop-blur-sm bg-black/40 flex items-center justify-center gap-3 transition-opacity duration-300 ${
             isHovered ? "opacity-100" : "opacity-0"
           }`}
         >
-          <button className="bg-white text-gray-800 p-3 rounded-full hover:bg-gray-100 transition-all duration-200 transform hover:scale-110 shadow-lg">
-            <ShoppingCart className="w-5 h-5" />
-          </button>
-          <button className="bg-white text-red-500 p-3 rounded-full hover:bg-gray-100 transition-all duration-200 transform hover:scale-110 shadow-lg">
-            <Heart className="w-5 h-5" />
-          </button>
+          {isInCart ? (
+            <button
+              className="bg-black text-white p-3 rounded-full hover:bg-gray-900 transition-all duration-200 transform hover:scale-110 shadow-lg"
+              onClick={() => removeFromCart(product._id)}
+            >
+              <ShoppingCart className="w-5 h-5" />
+            </button>
+          ) : (
+            <button
+              className="bg-white text-gray-800 p-3 rounded-full hover:bg-gray-100 transition-all duration-200 transform hover:scale-110 shadow-lg"
+              onClick={() => addToCart(product._id)}
+            >
+              <ShoppingCart className="w-5 h-5" />
+            </button>
+          )}
+
+          {isInWishlist ? (
+            <button
+              className="bg-red-500 text-white p-3 rounded-full hover:bg-red-600 transition-all duration-200 transform hover:scale-110 shadow-lg"
+              onClick={() => removeFromWishlist(product._id)}
+            >
+              <HeartCrack className="w-5 h-5" />
+            </button>
+          ) : (
+            <button
+              className="bg-white text-red-600 p-3 rounded-full hover:bg-gray-100 transition-all duration-200 transform hover:scale-110 shadow-lg"
+              onClick={() => addToWishlist(product._id)}
+            >
+              <Heart className="w-5 h-5" />
+            </button>
+          )}
         </div>
       </div>
 
       {/* Product Info */}
       <div className="p-5 space-y-3">
         {/* Brand Name */}
-        <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
+        <h3 className="text-sm font-semibold text-blue-800 uppercase tracking-wide">
           {product.brandName}
         </h3>
 
@@ -72,10 +97,10 @@ export default function ProductCard({ product }) {
 
         {/* Price Section */}
         <div className="flex items-center gap-3">
-          <span className="text-2xl font-bold text-gray-900">
+          <span className="text-2xl font-bold text-green-600">
             ₹{product.currentPrice}
           </span>
-          <span className="text-lg line-through text-gray-400">
+          <span className="text-lg line-through text-red-400">
             ₹{product.originalPrice}
           </span>
         </div>

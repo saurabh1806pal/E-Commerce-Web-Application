@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { ArrowRight, Heart } from "lucide-react";
 import SummaryCard from "./CardSummary";
 import { WishlistContext } from "../context/WishListContext";
+import { Link } from "react-router-dom";
 
 export default function WishlistPage() {
   const { wishlist } = useContext(WishlistContext);
@@ -41,10 +42,13 @@ export default function WishlistPage() {
 
                 <SummaryCard item={wishlist} />
 
-                <button className="w-full bg-white text-gray-900 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-200 flex items-center justify-center gap-2 group shadow-lg">
+                <Link
+                  to="/"
+                  className="w-full bg-white text-gray-900 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-200 flex items-center justify-center gap-2 group shadow-lg"
+                >
                   Continue Shopping
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -62,10 +66,13 @@ export default function WishlistPage() {
             <p className="text-gray-600 mb-8 text-lg">
               Start adding items you love to your wishlist
             </p>
-            <button className="bg-gray-900 text-white py-4 px-8 rounded-xl font-semibold hover:bg-gray-800 transition-all duration-200 inline-flex items-center gap-2 shadow-lg">
+            <Link
+              to="/"
+              className="bg-gray-900 text-white py-4 px-8 rounded-xl font-semibold hover:bg-gray-800 transition-all duration-200 inline-flex items-center gap-2 shadow-lg"
+            >
               Browse Products
               <ArrowRight className="w-5 h-5" />
-            </button>
+            </Link>
           </div>
         )}
       </div>

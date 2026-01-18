@@ -9,15 +9,24 @@ export default function PageWallet() {
     <div className="min-h-screen bg-white">
       {console.log(products)}
       {/* Hero Section */}
-      <section className="bg-linear-to-r from-gray-900 to-gray-700 text-white py-16 md:py-24">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Discover Amazing Products
-          </h2>
-          <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
-            Shop the latest trends with exclusive deals and fast delivery
-          </p>
+      <section className="relative py-16 md:py-24 overflow-hidden">
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage:
+              "url('https://pictures.kartmax.in/inside/live/1920x1080/quality=6/sites/StAFxmqh5LfPz3ZQSdCh/tmp/category/category_plp_banner-3ea2d939-25d7-4967-9897-ab50950338c0.jpg')",
+          }}
+        >
+          {/* Overlay for better text readability */}
+          <div className="absolute inset-0 bg-linear-to-r from-gray-900/90 to-gray-700/80"></div>
         </div>
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white"></h2>
+          <p className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto"></p>
+        </div>
+
+        {/* Content */}
       </section>
 
       {/* Products Section */}

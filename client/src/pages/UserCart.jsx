@@ -3,6 +3,7 @@ import SummaryCard from "./CardSummary";
 import { useContext } from "react";
 import { ArrowRight, Heart } from "lucide-react";
 import { CartContext } from "../context/CartContext";
+import { Link } from "react-router-dom";
 
 export default function CartPage() {
   const { cart } = useContext(CartContext);
@@ -39,10 +40,13 @@ export default function CartPage() {
                 <h3 className="text-2xl font-bold mb-6">Cart Summary</h3>
                 <SummaryCard item={cart} />
 
-                <button className="w-full bg-white text-gray-900 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-200 flex items-center justify-center gap-2 group shadow-lg">
-                  Continue Shopping
+                <Link
+                  to="/"
+                  className="w-full bg-white text-gray-900 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-200 flex items-center justify-center gap-2 group shadow-lg"
+                >
+                  Check-Out
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -60,10 +64,14 @@ export default function CartPage() {
             <p className="text-gray-600 mb-8 text-lg">
               Start adding items you love to your cart
             </p>
-            <button className="bg-gray-900 text-white py-4 px-8 rounded-xl font-semibold hover:bg-gray-800 transition-all duration-200 inline-flex items-center gap-2 shadow-lg">
+
+            <Link
+              to="/"
+              className="bg-gray-900 text-white py-4 px-8 rounded-xl font-semibold hover:bg-gray-800 transition-all duration-200 inline-flex items-center gap-2 shadow-lg"
+            >
               Browse Products
               <ArrowRight className="w-5 h-5" />
-            </button>
+            </Link>
           </div>
         )}
       </div>
